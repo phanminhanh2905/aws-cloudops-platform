@@ -14,5 +14,5 @@ output "aws_caller_arn" {
 
 output "aws_region" {
   description = "AWS region used by this configuration"
-  value       = data.aws_region.current.name
+  value       = data.aws_region.current.region
 }
