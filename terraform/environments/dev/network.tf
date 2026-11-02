@@ -129,3 +129,4 @@ resource "aws_route_table_association" "private" {
   subnet_id      = each.value
   route_table_id = each.key == "app_a" || each.key == "app_b" ? aws_route_table.app.id : aws_route_table.db.id
 }
+
