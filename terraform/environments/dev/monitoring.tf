@@ -1,5 +1,24 @@
 
 # ============================================================
+# CloudWatch Alarm Notifications
+# ============================================================
+
+resource "aws_sns_topic" "cloudwatch_alarms" {
+  name = "${var.project_name}-cloudwatch-alarms"
+
+  tags = {
+    Environment = var.environment
+    ManagedBy   = "Terraform"
+  }
+}
+
+resource "aws_sns_topic_subscription" "cloudwatch_alarms_email" {
+  topic_arn = aws_sns_topic.cloudwatch_alarms.arn
+  protocol  = "email"
+  endpoint  = var.alarm_email
+}
+
+# ============================================================
 # Application Log Group
 # ============================================================
 
@@ -34,6 +53,7 @@ resource "aws_cloudwatch_metric_alarm" "asg_capacity" {
   }
 
   treat_missing_data = "notBreaching"
+  alarm_actions      = [aws_sns_topic.cloudwatch_alarms.arn]
 
   tags = {
     Environment = var.environment
@@ -62,6 +82,7 @@ resource "aws_cloudwatch_metric_alarm" "unhealthy_targets" {
   }
 
   treat_missing_data = "notBreaching"
+  alarm_actions      = [aws_sns_topic.cloudwatch_alarms.arn]
 
   tags = {
     Environment = var.environment
@@ -89,6 +110,7 @@ resource "aws_cloudwatch_metric_alarm" "high_cpu" {
   }
 
   treat_missing_data = "notBreaching"
+  alarm_actions      = [aws_sns_topic.cloudwatch_alarms.arn]
 
   tags = {
     Environment = var.environment

@@ -100,6 +100,17 @@ variable "cpu_alarm_threshold" {
   default     = 70
 }
 
+variable "alarm_email" {
+  description = "Email address subscribed to CloudWatch alarm notifications"
+  type        = string
+  sensitive   = true
+
+  validation {
+    condition     = can(regex("^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$", var.alarm_email))
+    error_message = "alarm_email must be a valid email address."
+  }
+}
+
 
 # ============================================================
 # S3 Bucket
