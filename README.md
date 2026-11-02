@@ -119,7 +119,3 @@ AWS Region: `ap-southeast-1`
 - Application, network, and bootstrap troubleshooting.
 - Cloud monitoring, centralized logging, and alarm notifications.
 - Infrastructure security and cost-aware operations.
-
-## Disclaimer
-
-This is a personal learning and portfolio project. It is not a production reference. AWS resources can incur ongoing charges; review costs and destroy the lab when it is no longer needed.
