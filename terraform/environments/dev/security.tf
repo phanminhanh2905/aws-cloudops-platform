@@ -40,6 +40,14 @@ resource "aws_security_group" "alb" {
     cidr_blocks = var.alb_ingress_cidr
   }
 
+  ingress {
+    description = "HTTPS from internet"
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = var.alb_ingress_cidr
+  }
+
   tags = {
     Name        = "${var.project_name}-alb-sg"
     Environment = var.environment
